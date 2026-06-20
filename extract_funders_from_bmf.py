@@ -29,7 +29,7 @@ from typing import Iterable
 import pandas as pd
 
 # Update this with your EcoServants username or name before submitting.
-INTERN_NAME = "intern_username"
+INTERN_NAME = "filipevieira"
 
 RAW_FOLDER = Path("data/raw")
 OUTPUT_FOLDER = Path("data/output")
