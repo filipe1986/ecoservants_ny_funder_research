@@ -215,9 +215,25 @@ def main() -> None:
         "keyword_enriched_at": now,
     })
 
+    # the main candidate list (existing line)
     output.to_csv(OUTPUT_FILE, index=False)
+    
+    # --- STEP 1 HIGH-PRIORITY  ---
+    print("\n🔍 Running priority environmental screening...")
+    priority_keywords = ['ENVIR', 'CONSERV', 'SUSTAIN', 'YOUTH', 'VOLUNTEER']
+    
+    # the in-memory dataframe 
+    mission_mask = output['title'].astype(str).str.upper().str.contains('|'.join(priority_keywords), na=False)
+    priority_df = output[mission_mask]
+    
+    # the high-priority shortlist
+    priority_file_path = OUTPUT_FOLDER / "priority_ny_funders.csv"
+    priority_df.to_csv(priority_file_path, index=False)
+    print(f"🎯 Priority Screening Complete! Isolated {len(priority_df)} high-alignment organizations.")
+    # -------------------------------------------------
+
     print(f"Potential funder candidates exported: {len(output):,}")
-    print(f"Output saved to: {OUTPUT_FILE.resolve()}")
+
 
 
 if __name__ == "__main__":
